@@ -27,5 +27,17 @@ namespace prj.API.Controller
             var result = taskService.CreateTask(data);
             return Ok(result);
         }
+
+        [HttpDelete("{id}")]
+        public ActionResult<int> Delete(int Id)
+        {
+            return Ok(taskService.Delete(Id));
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Domain.Task> Update(int id, [FromBody] CreateTaskRequest task) {
+            
+            return Ok(taskService.Update(id, task));
+        }
     }
 }

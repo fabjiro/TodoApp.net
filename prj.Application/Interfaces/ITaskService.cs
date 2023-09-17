@@ -7,5 +7,10 @@ namespace prj.Application
         Domain.Task CreateTask(CreateTaskRequest task);
 
         Domain.Task? FindOne(int Id);
+        
+        Domain.Task? Update(int id, CreateTaskRequest task);
+
+        int? Delete(int Id);
+
     }
 }

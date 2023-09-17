@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using prj.Application;
 
 namespace prj.Application.Services
@@ -11,9 +12,25 @@ namespace prj.Application.Services
             this.taskRepository = taskRepository;
         }
 
+        public int? Delete(int Id)
+        {
+            return taskRepository.Delete(Id);
+        }
+
         public Domain.Task? FindOne(int Id)
         {
             return taskRepository.FindOne(Id);
+        }
+
+        public Domain.Task? Update(int id, CreateTaskRequest taskData)
+        {
+            var task = new Domain.Task {
+                Id = id,
+                Description = taskData.Description,
+                Title =taskData.Title
+            };
+
+            return taskRepository.Update(task);
         }
 
         Domain.Task ITaskService.CreateTask(CreateTaskRequest task)
