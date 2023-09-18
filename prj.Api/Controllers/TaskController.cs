@@ -24,20 +24,38 @@ namespace prj.API.Controller
         [HttpPost]
         public ActionResult<int> Create(CreateTaskRequest data)
         {
-            var result = taskService.CreateTask(data);
-            return Ok(result);
+            var resultCreate = taskService.CreateTask(data);
+
+            if (resultCreate == null)
+            {
+                return Problem("Error creating task", "/task/Create", 500);
+            }
+            return Ok(resultCreate);
         }
 
         [HttpDelete("{id}")]
         public ActionResult<int> Delete(int Id)
         {
-            return Ok(taskService.Delete(Id));
+            var deleteResult = taskService.Delete(Id);
+
+            if (deleteResult == null)
+            {
+                return Problem($"task {Id} not found", "/task/delete", 500);
+            }
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Domain.Task> Update(int id, [FromBody] CreateTaskRequest task) {
-            
-            return Ok(taskService.Update(id, task));
+        public ActionResult<Domain.Task> Update(int id, [FromBody] CreateTaskRequest task)
+        {
+
+            var taskUpdated = taskService.Update(id, task);
+
+            if (taskUpdated == null)
+            {
+                return Problem($"task {id} not found", "/task/update", 500);
+            }
+            return Ok(taskUpdated);
         }
     }
 }

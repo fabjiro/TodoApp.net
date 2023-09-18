@@ -16,7 +16,9 @@ public static class DependecyInjection
 
     private static IServiceCollection AddPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite(configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<ApplicationDbContext>(options => 
+                options.UseSqlite(configuration.GetConnectionString("DefaultConnection"))
+        );
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<ITaskRepository, TaskRepository>();
         return services;
